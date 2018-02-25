@@ -51,6 +51,7 @@ class ServerlessS3LocalSync {
     this.serverless = serverless;
     this.options = options;
     this.s3Sync = this.serverless.service.custom.s3Sync;
+    this.s3 = this.serverless.service.custom.s3 || {};
     this.servicePath = this.serverless.service.serverless.config.servicePath;
 
 
@@ -60,14 +61,6 @@ class ServerlessS3LocalSync {
         lifecycleEvents: [
           'sync',
         ],
-        options: {
-          port: {
-            usage:
-              'Specify the port you are using for local s3 buckets',
-            required: false,
-            shortcut: 'p',
-          },
-        },
       },
     };
 
@@ -77,10 +70,10 @@ class ServerlessS3LocalSync {
       'before:offline:start': this.sync.bind(this),
     };
 
-    const port = this.options.port || 5000;
+    this.s3.port = this.s3.port || 5000;
     this.client = new AWS.S3({
       s3ForcePathStyle: true,
-      endpoint: new AWS.Endpoint(`http://localhost:${port}`),
+      endpoint: new AWS.Endpoint(`http://localhost:${this.s3.port}`),
     });
   }
 
@@ -91,7 +84,7 @@ class ServerlessS3LocalSync {
       return Promise.resolve();
     }
 
-    cli.log(`sync using port: ${this.options.port} + ${this.servicePath}`);
+    cli.consoleLog(`${messagePrefix} Sync using port: ${this.s3.port} + ${this.servicePath}`);
 
     const promises = this.s3Sync.map((s) => {
       if (!s.bucketName || !s.localDir) {
