@@ -1,0 +1,27 @@
+{
+  "name": "serverless-s3-local-sync",
+  "version": "1.0.0",
+  "description": "syncs a directory with a local s3 bucket",
+  "author": "Steve Roberts",
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint index.js"
+  },
+  "pre-commit": [
+    "lint"
+  ],
+  "dependencies": {
+    "aws-sdk": "^2.177.0",
+    "glob": "^7.1.2",
+    "mime-types": "^2.1.17"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "pre-commit": "^1.2.2"
+  }
+}
