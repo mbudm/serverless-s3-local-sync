@@ -6,7 +6,7 @@ serverless plugin that syncs a directory with a local s3 bucket
 - https://github.com/k1LoW/serverless-s3-sync
 
 ## Example serverless.yml
-
+``` yml
 plugins:
   - serverless-offline # this plugin uses offline hooks
   - serverless-s3-sync # not required but this plugin uses the s3Sync custom config
@@ -23,3 +23,4 @@ custom:
   s3Sync: # serverless-s3-sync cobfig
     - bucketName: yourBucketName
       localDir: src 
+```
