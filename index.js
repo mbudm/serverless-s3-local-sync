@@ -95,7 +95,7 @@ class ServerlessS3LocalSync {
       cli.consoleLog(`${messagePrefix} Searching for files with pattern ${localDirGlob} to sync to bucket ${s.bucketName}.`);
       return getFileList(localDirGlob, { nodir: true })
         .then((fileList) => {
-          cli.consoleLog(`${messagePrefix} Files found: ${JSON.stringify(fileList)}`);
+          cli.consoleLog(`${messagePrefix} Files found: ${JSON.stringify(fileList, null, 2)}`);
           return uploadFiles(fileList, s.bucketName, s.localDir, this.client, cli);
         });
     });
