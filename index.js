@@ -31,7 +31,7 @@ function uploadFile(filePath, bucketName, localDir, client, cli) {
       Body: fs.createReadStream(filePath),
       ContentType: mime.lookup(filePath),
     };
-    cli.consoleLog(`${messagePrefix} Uploading.. ${JSON.stringify(params)}`);
+    cli.consoleLog(`${messagePrefix} Uploading.. ${params.Key}`);
     client.upload(params, (err) => {
       if (err) {
         reject(err);
@@ -93,7 +93,7 @@ class ServerlessS3LocalSync {
 
       const localDirGlob = `${path.relative(process.cwd(), s.localDir)}/**/*`;
       cli.consoleLog(`${messagePrefix} Searching for files with pattern ${localDirGlob} to sync to bucket ${s.bucketName}.`);
-      return getFileList(localDirGlob)
+      return getFileList(localDirGlob, { nodir: true })
         .then((fileList) => {
           cli.consoleLog(`${messagePrefix} Files found: ${JSON.stringify(fileList)}`);
           return uploadFiles(fileList, s.bucketName, s.localDir, this.client, cli);

@@ -1,6 +1,6 @@
 {
   "name": "serverless-s3-local-sync",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "syncs a directory with a local s3 bucket",
   "author": "Steve Roberts",
   "license": "MIT",
@@ -14,6 +14,7 @@
   ],
   "dependencies": {
     "aws-sdk": "^2.177.0",
+    "eslint-plugin-react": "^7.7.0",
     "glob": "^7.1.2",
     "mime-types": "^2.1.17"
   },
