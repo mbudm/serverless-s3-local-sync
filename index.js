@@ -50,10 +50,7 @@ class ServerlessS3LocalSync {
   constructor(serverless, options) {
     this.serverless = serverless;
     this.options = options;
-    this.s3Sync = this.serverless.service.custom.s3Sync;
-    this.s3 = this.serverless.service.custom.s3 || {};
     this.servicePath = this.serverless.service.serverless.config.servicePath;
-
 
     this.commands = {
       's3-local-sync': {
@@ -70,19 +67,22 @@ class ServerlessS3LocalSync {
       'before:offline:start': this.sync.bind(this),
     };
 
-    this.s3.port = this.s3.port || 5000;
-    this.client = new AWS.S3({
-      s3ForcePathStyle: true,
-      endpoint: new AWS.Endpoint(`http://localhost:${this.s3.port}`),
-    });
   }
 
   sync() {
     const { cli } = this.serverless;
+    this.s3Sync = (this.serverless.service.custom && this.serverless.service.custom.s3Sync) || [];
     if (!Array.isArray(this.s3Sync)) {
       cli.consoleLog(`${messagePrefix} s3Sync is not an array`, this.s3Sync);
       return Promise.resolve();
     }
+
+    this.s3 = this.serverless.service.custom.s3 || {};
+    this.s3.port = this.s3.port || 5000;
+    this.client = new AWS.S3({
+	    s3ForcePathStyle: true,
+	    endpoint: new AWS.Endpoint(`http://localhost:${this.s3.port}`),
+				       });
 
     cli.consoleLog(`${messagePrefix} Sync using port: ${this.s3.port} + ${this.servicePath}`);
 
