@@ -29,7 +29,7 @@ function uploadFile(filePath, bucketName, localDir, client, cli) {
       Key: cleanFilePathOfLocalDir(filePath, localDir),
       Bucket: bucketName,
       Body: fs.createReadStream(filePath),
-      ContentType: mime.lookup(filePath),
+      ContentType: mime.lookup(filePath) || 'application/octet-stream',
     };
     cli.consoleLog(`${messagePrefix} Uploading.. ${params.Key}`);
     client.upload(params, (err) => {
