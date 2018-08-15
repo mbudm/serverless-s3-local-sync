@@ -66,7 +66,6 @@ class ServerlessS3LocalSync {
       'before:offline:start:init': this.sync.bind(this),
       'before:offline:start': this.sync.bind(this),
     };
-
   }
 
   sync() {
@@ -80,9 +79,9 @@ class ServerlessS3LocalSync {
     this.s3 = this.serverless.service.custom.s3 || {};
     this.s3.port = this.s3.port || 5000;
     this.client = new AWS.S3({
-	    s3ForcePathStyle: true,
-	    endpoint: new AWS.Endpoint(`http://localhost:${this.s3.port}`),
-				       });
+      s3ForcePathStyle: true,
+      endpoint: new AWS.Endpoint(`http://localhost:${this.s3.port}`),
+    });
 
     cli.consoleLog(`${messagePrefix} Sync using port: ${this.s3.port} + ${this.servicePath}`);
 
