@@ -1,6 +1,6 @@
 {
   "name": "serverless-s3-local-sync",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "syncs a directory with a local s3 bucket",
   "author": "Steve Roberts",
   "license": "MIT",
