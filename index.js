@@ -78,9 +78,10 @@ class ServerlessS3LocalSync {
 
     this.s3 = this.serverless.service.custom.s3 || {};
     this.s3.port = this.s3.port || 5000;
+    this.s3.host = this.s3.host || 'localhost';
     this.client = new AWS.S3({
       s3ForcePathStyle: true,
-      endpoint: new AWS.Endpoint(`http://localhost:${this.s3.port}`),
+      endpoint: new AWS.Endpoint(`http://${this.s3.host}:${this.s3.port}`),
       accessKeyId: 'S3RVER',
       secretAccessKey: 'S3RVER',
     });
